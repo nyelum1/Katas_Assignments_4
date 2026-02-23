@@ -14,6 +14,7 @@ def extract(file_path, chunksize=1000):
     for chunk in pd.read_csv(file_path, chunksize=chunksize, low_memory=False):
         yield chunk
 
+# Data transformation
 def transform(chunk):
     """Cleans data, performs type conversion, and adds calculated fields."""
     cols = ['STATION', 'DATE', 'NAME', 'TMP', 'DEW']
@@ -82,3 +83,4 @@ for chunk in extract(CSV_FILE):
     load(transform(chunk), DB_FILE)
 
 generate_report(DB_FILE, REPORT_FILE)
+
