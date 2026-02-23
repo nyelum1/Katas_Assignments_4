@@ -45,6 +45,7 @@ def transform(chunk):
     
     return df.drop(columns=['TMP', 'DEW'])
 
+# Loading data into SQLite
 def load(df, db_path):
     """Loads data into SQLite using an idempotent upsert logic."""
     conn = sqlite3.connect(db_path)
@@ -83,4 +84,5 @@ for chunk in extract(CSV_FILE):
     load(transform(chunk), DB_FILE)
 
 generate_report(DB_FILE, REPORT_FILE)
+
 
