@@ -8,6 +8,7 @@ CSV_FILE = 'global hourly data.csv'
 DB_FILE = 'weather_data.db'
 REPORT_FILE = 'pipeline_report.md'
 
+# Extracting files 
 def extract(file_path, chunksize=1000):
     """Generator for memory-efficient reading of large CSV files."""
     for chunk in pd.read_csv(file_path, chunksize=chunksize, low_memory=False):
@@ -79,4 +80,5 @@ def generate_report(db_path, report_path):
 # --- Execution ---
 for chunk in extract(CSV_FILE):
     load(transform(chunk), DB_FILE)
+
 generate_report(DB_FILE, REPORT_FILE)
